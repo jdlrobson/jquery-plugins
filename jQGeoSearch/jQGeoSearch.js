@@ -1,6 +1,6 @@
 /***
 |''Name''|jqGeoSearch|
-|''Version''|0.3.2|
+|''Version''|0.3.21|
 |''Source''|https://github.com/jdlrobson/jquery-plugins/raw/master/jQGeoSearch/jQGeoSearch.js|
 !Usage
 jQGeoSearch allows you to easily create client side pages that take a human readable place name and return you useful information like the longitude and latitude. To use simply use the following code to get started
@@ -30,7 +30,7 @@ $.fn.extend({
 		};
 		var input = $("<input type='text' class='locationInput' name='location'/>").
 			keypress(function(ev){
-				if(ev.charCode == '13') {
+				if(ev.charCode === '13') {
 					triggerSearch($(ev.target).val());
 				}
 			}).appendTo(container)[0];
@@ -48,11 +48,21 @@ var ext = $._geoSearch = {
 		noresults: "Nothing found. To increase accuracy include country or postcode."
 	},
 	makeOptions: function(options) {
-		if(!options) options = {};
-		if(!options.proxy) options.proxy = false;
-		if(!options.proxyType) options.proxyType = "post";
-		if(!options.service) options.service = "google";
-		if(!options.data) options.data = {};
+		if(!options) {
+			options = {};
+		}
+		if(!options.proxy) {
+			options.proxy = false;
+		}
+		if(!options.proxyType) {
+			options.proxyType = "post";
+		}
+		if(!options.service) {
+			options.service = "google";
+		}
+		if(!options.data) {
+			options.data = {};
+		}
 		return options;
 	},
 	service: {
@@ -71,7 +81,7 @@ var ext = $._geoSearch = {
 			resultsPath: "Placemark",
 			lngLat: function(r) {
 				var p = r.Point.coordinates;
-				return { lng: p[0], lat: p[1] }
+				return { lng: p[0], lat: p[1] };
 			},
 			humanReadable: function(r) {
 				return r.address;
@@ -82,7 +92,7 @@ var ext = $._geoSearch = {
 			resultsPath: "features",
 			lngLat: function(r) {
 				var p = r.geometry.coordinates;
-				return { lng: p[0], lat: p[1] }
+				return { lng: p[0], lat: p[1] };
 			},
 			humanReadable: function(r) {
 				return r.properties.display;
@@ -119,11 +129,12 @@ var ext = $._geoSearch = {
 			data: data,
 			contentType: "application/x-www-form-urlencoded", 
 			success: function(geo) {
+				var i, result;
 				var results = mode.resultsPath ? geo[mode.resultsPath] || [] : geo;
 				if(results.length === 0) {
 					$(container).text(ext.locale.noresults);
-				} else if(results.length == 1) {
-					var result = results[0];
+				} else if(results.length === 1) {
+					result = results[0];
 					result.lngLat = mode.lngLat(result);
 					result.humanReadable = mode.humanReadable(result);
 					callback(result);
@@ -137,8 +148,8 @@ var ext = $._geoSearch = {
 						}
 						$(container).empty();
 					};
-					for(var i=0; i < results.length; i++) {
-						var result = results[i];
+					for(i=0; i < results.length; i++) {
+						result = results[i];
 						result.lngLat = mode.lngLat(result);
 						var formatted = mode.humanReadable(result);
 						result.humanReadable = formatted;
@@ -153,6 +164,6 @@ var ext = $._geoSearch = {
 };
 ext.init();
 
-})(jQuery)
+}(jQuery));
 //}}}
 

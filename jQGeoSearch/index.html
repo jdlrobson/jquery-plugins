@@ -33,6 +33,9 @@
 	padding: 8px;
 	margin-bottom: 4px;
 }
+dl {
+	text-align: left;
+}
 </style>
 </head>
 <body>
@@ -42,8 +45,24 @@
 	If there are more than one matches you'll be able to hand pick the correct one.
 	<div id='test'></div>
 	
-	<h2>options<h2>
-		
+	<h2>options</h2>
+	<dl>
+		<dt>service</dt>
+		<dd class='type'>string (google, opengeocoding, openaddresses or nominatim)</dd>
+		<dd class='description'>name of the service to use for looking up longitude and latitude</dd>
+		<dt>proxy</dt>
+		<dd class='type'>string (url)</dd>
+		<dd class='description'>address of proxy server to send uri parameter to</dd>
+		<dt>proxyType</dt>
+		<dd class='type'>string</dd>
+		<dd class='description'>method to use when addressing the proxy server</dd>
+		<dt>data</dt>
+		<dd class='type'>object</dd>
+		<dd class='description'>additional parameters to send to the proxy server</dd>
+		<dt>useTopResult</dt>
+		<dd class='type'>boolean</dd>
+		<dd class='description'>if this is set to true, on obtaining multiple results the first result will be chosen</dd>
+	</dl>
 	<h2>Developers</h2>
 	<h3>add services</h3>
 	 It's made to work with multiple services defined in

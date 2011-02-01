@@ -1,6 +1,6 @@
 /***
 |''Name''|jqGeoSearch|
-|''Version''|0.3.0|
+|''Version''|0.3.1|
 |''Source''|https://github.com/jdlrobson/jquery-plugins/raw/master/jQGeoSearch/jQGeoSearch.js|
 !Usage
 jQGeoSearch allows you to easily create client side pages that take a human readable place name and return you useful information like the longitude and latitude. To use simply use the following code to get started
@@ -23,7 +23,7 @@ jQGeoSearch allows you to easily create client side pages that take a human read
 $.fn.extend({
 	geoSearch: function(options) {
 		options = ext.makeOptions(options);
-		var container = this.context;
+		var container = this;
 		var triggerSearch = function(val) {
 			var resultsArea = $(".resultsArea", container)[0];
 			ext.lookupLngLat(val, resultsArea, options, options.handler || function() {});
@@ -105,7 +105,7 @@ var ext = $._geoSearch = {
 		$(container).empty();
 		name = encodeURIComponent(name);
 		var mode = ext.service[options.service] || ext.service["default"];
-		var url = mode.url.format(name);
+		var url = mode.url.replace("%0", name);
 		var data = {}, lookupUrl;
 		if(!options.proxy) {
 			lookupUrl = url;
@@ -114,7 +114,7 @@ var ext = $._geoSearch = {
 			lookupUrl = options.proxy;
 		}
 		data = $.extend(data, options.data);
-		ajaxReq({type: options.proxyType, dataType:"json", url: lookupUrl,
+		$.ajax({type: options.proxyType, dataType:"json", url: lookupUrl,
 			data: data,
 			contentType: "application/x-www-form-urlencoded", 
 			success: function(geo) {

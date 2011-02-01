@@ -4,8 +4,10 @@
 <style type='text/css'>
 #page {
 	margin: auto;
-	text-align: center;
 	width: 800px;
+}
+#test {
+	text-align: center;
 }
 .locationInput {
 	width: 800px;
@@ -47,6 +49,22 @@ dl {
 	
 	<h2>options</h2>
 	<dl>
+		<dt>handler</dt>
+		<dd class='type'>function</dd>
+		<dd class='description'>
+			This function defines what should be run on retrieving the longitude and latitude. The function takes one parameter
+			which is the object returned by the service. In all objects no matter what the service, the values lngLat and humanReadable keys are
+			available.<br/>
+			<b>sample code:</b><br/>
+			<pre>
+				function(r) {
+					var lng = r.lngLat.lat;
+					var lat = r.lngLat.lng;
+					var name = r.humanReadable;
+					// do something
+				}
+			</pre>
+		</dd>
 		<dt>service</dt>
 		<dd class='type'>string (google, opengeocoding, openaddresses or nominatim)</dd>
 		<dd class='description'>name of the service to use for looking up longitude and latitude</dd>

@@ -63,6 +63,9 @@ var ext = $._geoSearch = {
 		if(!options.data) {
 			options.data = {};
 		}
+		if(!options.dataType) {
+			options.dataType = "json";
+		}
 		return options;
 	},
 	service: {
@@ -125,7 +128,7 @@ var ext = $._geoSearch = {
 			lookupUrl = options.proxy;
 		}
 		data = $.extend(data, options.data);
-		$.ajax({type: options.method, dataType:"json", url: lookupUrl,
+		$.ajax({type: options.method, dataType: options.dataType, url: lookupUrl,
 			data: data,
 			contentType: "application/x-www-form-urlencoded", 
 			success: function(geo) {

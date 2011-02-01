@@ -106,14 +106,15 @@ var ext = $._geoSearch = {
 		name = encodeURIComponent(name);
 		var mode = ext.service[options.service] || ext.service["default"];
 		var url = mode.url.format(name);
-		var data = {};
+		var data = {}, lookupUrl;
 		if(!options.proxy) {
-			options.proxy = url;
+			lookupUrl = url;
 		} else {
 			data.uri = url;
+			lookupUrl = options.proxy;
 		}
 		data = $.extend(data, options.data);
-		ajaxReq({type: options.proxyType, dataType:"json", url: options.proxy,
+		ajaxReq({type: options.proxyType, dataType:"json", url: lookupUrl,
 			data: data,
 			contentType: "application/x-www-form-urlencoded", 
 			success: function(geo) {

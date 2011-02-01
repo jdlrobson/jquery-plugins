@@ -1,6 +1,6 @@
 /***
 |''Name''|jqGeoSearch|
-|''Version''|0.3.1|
+|''Version''|0.3.2|
 |''Source''|https://github.com/jdlrobson/jquery-plugins/raw/master/jQGeoSearch/jQGeoSearch.js|
 !Usage
 jQGeoSearch allows you to easily create client side pages that take a human readable place name and return you useful information like the longitude and latitude. To use simply use the following code to get started
@@ -38,6 +38,7 @@ $.fn.extend({
 		$("<input type='button' class='find' value='find'>").
 			click(function(ev) {
 				triggerSearch($(input).val());
+				ev.preventDefault();
 			}).appendTo(container);
 		return this;
 	}
@@ -128,6 +129,7 @@ var ext = $._geoSearch = {
 					callback(result);
 				} else {
 					var clickHandler = function(ev) {
+						ev.preventDefault();
 						var target = ev.target;
 						var data = $(target).data("geo.info");
 						if(data) {
